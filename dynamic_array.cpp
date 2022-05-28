@@ -36,15 +36,6 @@ public:
 		else
 			cout << "out of scope" << endl;
 	}
-
-	void remove_element(const T* item_pos) {
-		T* first_element = array;
-		T* last_element = array + elements_num-1;
-		int index = last_element - item_pos;
-		for (int i = 0; i < index; i++) {
-			*(array + i) = *(array + i + 1);
-		}
-	}
 	size_t get_element_num() {
 		return elements_num;
 	}
@@ -72,6 +63,7 @@ public:
 		}
 		array = (T*)realloc(new_array, sizeof(T) * (elements_num - new_array_size));
 		elements_num = elements_num - new_array_size;
+		array_capacity = elements_num;
 		return array;
 	}
 	~DynamicArray() {
@@ -115,6 +107,30 @@ int main() {
 		else
 			cout << a1[i] << ",";
 	}
-
+	a1.push_back(5);
+	a1.push_back(5);
+	a1.push_back(5);
+	a1.push_back(5);
+	a1.push_back(5);
+	a1.push_back(5);
+	a1.push_back(5);
+	for (int it = 0; it < 50; it++) {
+	a1.push_back(it);
+	}
+	cout << "after pushing more than 5: ";
+	for (int i = 0; i < a1.get_element_num(); i++) {
+	if (a1.get_element_num() - i == 1)
+		cout << a1[i] << endl;
+	else
+		cout << a1[i] << ",";
+	}
+	cout << "after removing element have value 5: ";
+	a1.remove_if(custom_2);
+	for (int i = 0; i < a1.get_element_num(); i++) {
+	if (a1.get_element_num() - i == 1)
+		cout << a1[i] << endl;
+	else
+		cout << a1[i] << ",";
+	}
 	return 0;
 }
